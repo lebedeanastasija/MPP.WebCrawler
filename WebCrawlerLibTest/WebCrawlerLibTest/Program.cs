@@ -17,7 +17,7 @@ namespace WebCrawlerLibTest
             try
             { 
                 var crawlResult = crawler.PerformCrawlingAsync(urls).Result;
-                Console.Write(crawlResult.ToString());
+                Console.Write(crawlResult.ToText());
             }
             catch(Exception e)
             {

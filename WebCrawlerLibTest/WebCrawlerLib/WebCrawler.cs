@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
+using log4net.Config;
+using log4net.Appender;
+using System.IO;
 
 namespace WebCrawlerLib
 {
     public class WebCrawler: IWebCrawler
     {
-        public int maxNesting;
+        private int maxNesting;
+
+
+        private static readonly ILog logger = LogManager.GetLogger(typeof(WebCrawler));
 
         public WebCrawler(int nesting)
         {
             this.maxNesting = nesting;
+            BasicConfigurator.Configure();
         }
 
         public async Task<CrawlResult> PerformCrawlingAsync(string[] rootUrls)
@@ -24,6 +32,7 @@ namespace WebCrawlerLib
                if(rootUrl != null)
                     crawlResult[rootUrl] = await CrawlUrl(rootUrl, 0);
             }
+
             return crawlResult;
         }
 
@@ -49,7 +58,8 @@ namespace WebCrawlerLib
                             } 
                             catch(Exception e)
                             {
-                                Console.WriteLine(e.Message);
+                                logger.Error(pageUrl + ": ", e);
+
                                 if (urlsCrawlResult.Keys.Contains(pageUrl))
                                 {
                                     urlsCrawlResult[pageUrl] = null;
@@ -59,7 +69,7 @@ namespace WebCrawlerLib
                     }
                     catch(Exception e)
                     {
-                        Console.WriteLine(e.Message);
+                        logger.Error(url + ": ", e);
                     }
                 }
             }

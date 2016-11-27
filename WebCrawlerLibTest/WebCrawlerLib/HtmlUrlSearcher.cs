@@ -30,7 +30,7 @@ namespace WebCrawlerLib
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                throw e;
             }
             
             return pageHtml.ToString();
@@ -48,7 +48,7 @@ namespace WebCrawlerLib
             }
             catch(Exception e)
             {
-                Console.WriteLine(e);
+                throw e;
             }
             HtmlNodeCollection links = page.DocumentNode.SelectNodes("//a");
             Uri root = new Uri(rootUrl);
@@ -67,16 +67,14 @@ namespace WebCrawlerLib
                         }
                         catch(Exception e)
                         {
-                            Console.WriteLine(e);
+                            throw e;
                         }
                     }
-
-
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                throw e;
             }
             return pageUrls;
         }
