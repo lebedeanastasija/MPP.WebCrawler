@@ -76,7 +76,7 @@ namespace WebCrawlerLib
             }
             catch (Exception e)
             {
-                throw e;
+                Console.WriteLine(e);
             }
             return pageUrls;
         }

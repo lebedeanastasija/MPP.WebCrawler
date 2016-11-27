@@ -17,11 +17,12 @@ namespace WebCrawlerLib
 
         public async Task<CrawlResult> PerformCrawlingAsync(string[] rootUrls)
         {
-            CrawlResult crawlResult = new CrawlResult();
-            var j = 0;
+            CrawlResult crawlResult = new CrawlResult();          
+
             foreach (string rootUrl in rootUrls)
             {
-               crawlResult[rootUrl] = await CrawlUrl(rootUrl, 0);
+               if(rootUrl != null)
+                    crawlResult[rootUrl] = await CrawlUrl(rootUrl, 0);
             }
             return crawlResult;
         }
@@ -41,13 +42,24 @@ namespace WebCrawlerLib
                     try
                     { 
                         foreach (string pageUrl in HtmlUrlSearcher.Instance.GetPageUrls(pageHtml, url))
-                        {                      
-                           urlsCrawlResult[pageUrl] = await CrawlUrl(pageUrl, nesting + 1);                     
+                        {               
+                            try
+                            {
+                                urlsCrawlResult[pageUrl] = await CrawlUrl(pageUrl, nesting + 1);
+                            } 
+                            catch(Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                                if (urlsCrawlResult.Keys.Contains(pageUrl))
+                                {
+                                    urlsCrawlResult[pageUrl] = null;
+                                }
+                            }                                                   
                         }
                     }
                     catch(Exception e)
                     {
-                        throw e;
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
