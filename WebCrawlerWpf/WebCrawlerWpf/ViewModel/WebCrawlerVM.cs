@@ -13,6 +13,7 @@ namespace WebCrawlerWpf.ViewModel
     {
         private readonly WebCrawler webCrawler;
         private CrawlResult crawlResult;
+        private int clicks;
         public event PropertyChangedEventHandler PropertyChanged;
         
         public CrawlResult CrawlResult
@@ -36,9 +37,31 @@ namespace WebCrawlerWpf.ViewModel
             }
         }
 
+        public ICommand ClickCommand 
+        {
+            get
+            {
+                return new Command(ClickButton);
+            }
+        }
+
+        public int Clicks
+        {
+            get
+            {
+                return clicks;
+            }
+            set
+            {
+                clicks = value;
+                RaisePropertyChangedEvent(nameof(Clicks));
+            }
+        }
+
         public WebCrawlerVM()
         {
-            webCrawler = new WebCrawler(1);
+            webCrawler = new WebCrawler(2);
+            Clicks = 0;
         }
 
         private async void CrawlLinks()
@@ -49,12 +72,18 @@ namespace WebCrawlerWpf.ViewModel
             CrawlResult = crawlResult;
         }
 
+        private void ClickButton()
+        {
+            int clicks = Clicks + 1;
+            Clicks = clicks;
+        }
+
         protected void RaisePropertyChangedEvent(string propertyName)
         {
             var handler = PropertyChanged;
+            int i = 0;
             if(handler != null)
-                handler(this, new PropertyChangedEventArgs(propertyName));
-           
+                handler(this, new PropertyChangedEventArgs(propertyName));           
         }
     }
 }

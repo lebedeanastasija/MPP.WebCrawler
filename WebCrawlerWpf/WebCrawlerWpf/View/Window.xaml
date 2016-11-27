@@ -8,11 +8,11 @@
              d:DesignHeight="610" d:DesignWidth="490">
     <StackPanel Height="610">
         <Label Foreground="Blue"  Content="Clicks :" Margin="195,0,0,0"/>
-        <Label Foreground="Green" Content="{Binding Clicks}"  Margin="195,0,0,0" />
-        
+        <TextBox Foreground="Green" Text="{Binding Clicks}" Height="20" Width="45" Margin="195,0,250,0"/>
+
         <Button Command="{Binding ClickCommand}" Margin="195,5" Width="100" Content="Click Me"/>
         <Button Command="{Binding CrawlCommand}" Margin="195,5" Width="100" Content="Start Crawling"/>
-        
+
         <Label Foreground="Blue" Margin="5,5,5,0" Content="Crawl result"/>
         <TreeView Height="450" ItemsSource="{Binding CrawlResult}">
             <TreeView.ItemTemplate>
