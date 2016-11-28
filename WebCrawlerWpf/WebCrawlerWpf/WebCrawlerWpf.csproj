@@ -54,7 +54,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WebCrawlerLib">
+    <Reference Include="WebCrawlerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\WebCrawlerLibTest\WebCrawlerLib\bin\Debug\WebCrawlerLib.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />

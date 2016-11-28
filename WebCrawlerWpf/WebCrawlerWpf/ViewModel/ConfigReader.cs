@@ -76,7 +76,12 @@ namespace WebCrawlerWpf.ViewModel
                         RootResources.Add(child.InnerXml);
                     }                    
                 }
-            }           
+            }  
+            
+            if(MaxCrawlNestity == null)
+            {
+                MaxCrawlNestity = 2;
+            }         
         }
     }
 }

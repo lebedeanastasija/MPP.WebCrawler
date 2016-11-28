@@ -25,14 +25,22 @@ namespace WebCrawlerLib
 
         public async Task<CrawlResult> PerformCrawlingAsync(string[] rootUrls)
         {
-            CrawlResult crawlResult = new CrawlResult();          
-
-            foreach (string rootUrl in rootUrls)
+            CrawlResult crawlResult = new CrawlResult();
+            if (rootUrls.Length > 0)
             {
-               if(rootUrl != null)
-                    crawlResult[rootUrl] = await CrawlUrl(rootUrl, 0);
+                
+                foreach (string rootUrl in rootUrls)
+                {
+                    if (rootUrl != null)
+                        crawlResult[rootUrl] = await CrawlUrl(rootUrl, 0);
+                }
             }
-
+            else
+            {
+                crawlResult["--invalid urls config info--"] = null;
+                logger.Warn("\nWARN: --invalid urls config info--\n");
+            }
+           
             return crawlResult;
         }
 
