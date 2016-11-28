@@ -11,7 +11,7 @@ namespace WebCrawlerLibTest
     {
         static void Main(string[] args)
         {
-            WebCrawler crawler = new WebCrawler(1);
+            WebCrawler crawler = new WebCrawler(2);
             string[] urls = new string[1];
             urls[0] = "https://translate.google.ru/";
             try

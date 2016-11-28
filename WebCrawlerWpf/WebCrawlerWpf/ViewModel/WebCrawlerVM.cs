@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
 using WebCrawlerLib;
+using System.Configuration;
+using System.IO;
 
 namespace WebCrawlerWpf.ViewModel
 {
     class WebCrawlerVM: INotifyPropertyChanged
     {
+        
         private readonly WebCrawler webCrawler;
         private CrawlResult crawlResult;
         private int clicks;
@@ -81,7 +84,6 @@ namespace WebCrawlerWpf.ViewModel
         protected void RaisePropertyChangedEvent(string propertyName)
         {
             var handler = PropertyChanged;
-            int i = 0;
             if(handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));           
         }
