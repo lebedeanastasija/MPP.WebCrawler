@@ -17,7 +17,10 @@ namespace WebCrawlerWpf.ViewModel
         private readonly WebCrawler webCrawler;
         private CrawlResult crawlResult;
         private int clicks;
+        private int maxNestity;
+        private string[] rootResources;
         public event PropertyChangedEventHandler PropertyChanged;
+        
         
         public CrawlResult CrawlResult
         {
@@ -63,15 +66,16 @@ namespace WebCrawlerWpf.ViewModel
 
         public WebCrawlerVM()
         {
-            webCrawler = new WebCrawler(2);
+            ConfigReader.Instance.Read();
+            maxNestity = ConfigReader.Instance.MaxCrawlNestity;
+            rootResources = ConfigReader.Instance.RootResources.ToArray();
+            webCrawler = new WebCrawler(maxNestity);
             Clicks = 0;
         }
 
         private async void CrawlLinks()
         {
-            string[] urls = new string[1];
-            urls[0] = "https://translate.google.ru/";
-            CrawlResult crawlResult = await webCrawler.PerformCrawlingAsync(urls);
+            CrawlResult crawlResult = await webCrawler.PerformCrawlingAsync(rootResources);
             CrawlResult = crawlResult;
         }
 
