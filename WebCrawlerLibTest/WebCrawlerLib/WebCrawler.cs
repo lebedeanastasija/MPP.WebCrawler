@@ -63,6 +63,7 @@ namespace WebCrawlerLib
                             try
                             {
                                 urlsCrawlResult[pageUrl] = await CrawlUrl(pageUrl, nesting + 1);
+                                var level = nesting + urlsCrawlResult.Count;
                             } 
                             catch(Exception e)
                             {

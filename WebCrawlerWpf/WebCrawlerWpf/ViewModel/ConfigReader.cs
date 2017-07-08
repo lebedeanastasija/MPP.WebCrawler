@@ -30,6 +30,7 @@ namespace WebCrawlerWpf.ViewModel
         {
             document = new System.Xml.XPath.XPathDocument(fileName);
             RootResources = new List<string>();
+            MaxCrawlNestity = -1;
         }
 
         public static ConfigReader Instance
@@ -78,7 +79,7 @@ namespace WebCrawlerWpf.ViewModel
                 }
             }  
             
-            if(MaxCrawlNestity == null)
+            if(MaxCrawlNestity == -1)
             {
                 MaxCrawlNestity = 2;
             }         
